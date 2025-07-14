@@ -1,0 +1,261 @@
+{
+  "info": {
+    "name": "URL Shortener Microservice API",
+    "description": "Complete API collection for the URL Shortener service - Affordmed Campus Hiring",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the API service is running and healthy"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Short URL - Basic",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"url\": \"https://www.google.com/search?q=affordmed+healthcare\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/shorturls",
+          "host": ["{{baseUrl}}"],
+          "path": ["shorturls"]
+        },
+        "description": "Create a short URL with default settings (30 minutes validity)"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Short URL - With Custom Validity",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"url\": \"https://github.com/affordmed/campus-hiring\",\n  \"validity\": 60\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/shorturls",
+          "host": ["{{baseUrl}}"],
+          "path": ["shorturls"]
+        },
+        "description": "Create a short URL with custom validity period (60 minutes)"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Short URL - With Custom Shortcode",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"url\": \"https://www.affordmed.com/careers\",\n  \"shortcode\": \"affordmed-jobs\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/shorturls",
+          "host": ["{{baseUrl}}"],
+          "path": ["shorturls"]
+        },
+        "description": "Create a short URL with custom shortcode"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Short URL - Full Options",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"url\": \"https://docs.google.com/forms/d/1234567890/viewform\",\n  \"validity\": 120,\n  \"shortcode\": \"campus-form\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/shorturls",
+          "host": ["{{baseUrl}}"],
+          "path": ["shorturls"]
+        },
+        "description": "Create a short URL with all options: custom validity and shortcode"
+      },
+      "response": []
+    },
+    {
+      "name": "Get URL Details - Valid Shortcode",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/shorturls/{{shortcode}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["shorturls", "{{shortcode}}"]
+        },
+        "description": "Retrieve analytics and details for a specific short URL"
+      },
+      "response": []
+    },
+    {
+      "name": "Redirect Short URL",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/{{shortcode}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["{{shortcode}}"]
+        },
+        "description": "Test the redirect functionality (will redirect to original URL)"
+      },
+      "response": []
+    },
+    {
+      "name": "Error Test - Invalid URL",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"url\": \"not-a-valid-url\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/shorturls",
+          "host": ["{{baseUrl}}"],
+          "path": ["shorturls"]
+        },
+        "description": "Test error handling with invalid URL format"
+      },
+      "response": []
+    },
+    {
+      "name": "Error Test - Invalid Validity",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"url\": \"https://www.example.com\",\n  \"validity\": -10\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/shorturls",
+          "host": ["{{baseUrl}}"],
+          "path": ["shorturls"]
+        },
+        "description": "Test error handling with invalid validity period"
+      },
+      "response": []
+    },
+    {
+      "name": "Error Test - Invalid Shortcode",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"url\": \"https://www.example.com\",\n  \"shortcode\": \"invalid@shortcode!\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/shorturls",
+          "host": ["{{baseUrl}}"],
+          "path": ["shorturls"]
+        },
+        "description": "Test error handling with invalid shortcode format"
+      },
+      "response": []
+    },
+    {
+      "name": "Error Test - Duplicate Shortcode",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"url\": \"https://www.different-url.com\",\n  \"shortcode\": \"affordmed-jobs\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/shorturls",
+          "host": ["{{baseUrl}}"],
+          "path": ["shorturls"]
+        },
+        "description": "Test error handling when trying to use an existing shortcode"
+      },
+      "response": []
+    },
+    {
+      "name": "Error Test - Non-existent Shortcode",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/shorturls/non-existent-code",
+          "host": ["{{baseUrl}}"],
+          "path": ["shorturls", "non-existent-code"]
+        },
+        "description": "Test error handling when requesting details for non-existent shortcode"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "description": "Base URL for the URL Shortener API"
+    },
+    {
+      "key": "shortcode",
+      "value": "affordmed-jobs",
+      "description": "Example shortcode for testing (replace with actual shortcode from create response)"
+    }
+  ]
+}
